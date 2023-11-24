@@ -1,4 +1,14 @@
-# Final Project Template
+# Final Project Template From Rod
+
+
+URLS Requested:
+
+https://rvicenciow-8000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/djangoapp/about/
+https://rvicenciow-8000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/djangoapp/contact/
+
+
+
+------------   rest of the summary --------------------------
 
 The final project for this course has several steps that you must complete. 
 To give you an overview of the whole project, all the high-level steps are listed below. 

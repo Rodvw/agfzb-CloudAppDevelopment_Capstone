@@ -1,0 +1,4 @@
+.nav-link.active {
+    font-weight: bold;
+    color: white; /* O el color que prefieras para destacar */
+}
