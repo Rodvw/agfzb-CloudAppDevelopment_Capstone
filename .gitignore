@@ -84,13 +84,16 @@ ipython_config.py
 
 # pyenv
 .python-version
-
+.venv_new
 # pipenv
 #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
 #   However, in case of collaboration, if having platform-specific dependencies or dependencies
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
 #Pipfile.lock
+
+# Node modules
+functions/node_modules/
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
@@ -110,6 +113,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.venv_new
 
 # Spyder project settings
 .spyderproject

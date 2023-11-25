@@ -16,6 +16,11 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
+def index_view(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, 'djangoapp/index.html', context)
+
 # Create an `about` view to render a static about page
 def about(request):
     context = {}
@@ -91,7 +96,7 @@ def registration_request(request):
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://rvicenciow-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        url = "http://localhost:3000/dealerships/get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
