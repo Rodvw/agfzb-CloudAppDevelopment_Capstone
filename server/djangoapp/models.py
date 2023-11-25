@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.utils.timezone import now
 
@@ -7,11 +8,12 @@ from django.utils.timezone import now
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 # User CarMake
 class CarMake(models.Model):
-    name = models.CharField(max_length=50, primary_key=True)
-    desc = models.CharField(max_length=200)
+    name = models.CharField(null=False, max_length=100)
+    desc = models.TextField(max_length=500)
 
+    # Create a toString method for object string representation
     def __str__(self):
-        return self.name
+        return "Name: " + self.name
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
 # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
@@ -24,23 +26,32 @@ class CarMake(models.Model):
 
 
 class CarModel(models.Model):
-    TYPE_CHOICES = (
-        ('sedan', 'Sedan'),
-        ('suv', 'SUV'),
-        ('wagon', 'Wagon'),
-        # ... otras opciones ...
+    id = models.IntegerField(default=1,primary_key=True)
+    name = models.CharField(null=False, max_length=100)
+   
+    SEDAN = 'Sedan'
+    SUV = 'SUV'
+    WAGON = 'Wagon'
+    MINIVAN = 'Minivan'
+    CAR_TYPES = [
+        (SEDAN, 'Sedan'),
+        (SUV, 'SUV'),
+        (WAGON, 'Wagon'),
+        (MINIVAN, 'Minivan')
+    ]
+
+    type = models.CharField(
+        null=False,
+        max_length=50,
+        choices=CAR_TYPES,
+        default=SEDAN
     )
-    name = models.CharField(null=False, max_length=50, primary_key=True )
-    id = models.CharField(max_length=2)
-    type = models.CharField(max_length=30, choices=TYPE_CHOICES)  # Usando choices aquí
-    year = models.DateField(null=True)
-    carmake = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # Relación ManyToOne a CarMake
-    
+    make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    year = models.DateField(default=now)
+
     def __str__(self):
-        return self.name
-
-
-
+        return "Name: " + self.name
+ 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 
 class CarDealer:
@@ -67,31 +78,39 @@ class CarDealer:
 
     def __str__(self):
         return "Dealer name: " + self.full_name
+    
+    
 # <HINT> Create a plain Python class `DealerReview` to hold review data
-
 class DealerReview:
-
-    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, sentiment, id):
-        # Dealership
+    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, id, sentiment=None):
         self.dealership = dealership
-        # Dealer name
         self.name = name
-        # Dealer purchase
         self.purchase = purchase
-        # Dealer review
         self.review = review
-        # purchase_date
         self.purchase_date = purchase_date
-        # car_make
         self.car_make = car_make
-        # car_model
         self.car_model = car_model
-        # car_year
         self.car_year = car_year
-        # sentiment
-        self.sentiment = sentiment
-        # id
+        self.sentiment = sentiment  # Watson NLU service
         self.id = id
 
     def __str__(self):
-        return "Dealer name: " + self.name
+        return "Review: " + self.review +\
+            " Sentiment: " + self.sentiment
+
+
+class ReviewPost:
+
+    def __init__(self, dealership, name, purchase, review):
+        self.dealership = dealership
+        self.name = name
+        self.purchase = purchase
+        self.review = review
+        self.purchase_date = ""
+        self.car_make = ""
+        self.car_model = ""
+        self.car_year = ""
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                            sort_keys=True, indent=4)
