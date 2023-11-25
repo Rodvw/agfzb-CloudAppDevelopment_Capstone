@@ -67,8 +67,6 @@ class CarDealer:
 
     def __str__(self):
         return "Dealer name: " + self.full_name
-
-
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 
 class DealerReview:
