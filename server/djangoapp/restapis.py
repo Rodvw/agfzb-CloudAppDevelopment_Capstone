@@ -4,6 +4,11 @@ import json
 from requests.auth import HTTPBasicAuth
 
 
+#    dealer_doc = dealer
+
+
+
+
 # Create a `get_request` to make HTTP GET requests
 # e.g., response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
 #                                     auth=HTTPBasicAuth('apikey', api_key))
